@@ -5,7 +5,7 @@ class UserController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string().required(),
+      email: Yup.string().email().required(),
       password: Yup.string().required().min(6),
       sector: Yup.string().required(),
     });
@@ -14,9 +14,9 @@ class UserController {
       return res.status(400).json({ error: 'Falha na validação de dados' });
     }
 
-    const UserExist = await User.findOne({ where: { email: req.body.email } });
+    const userExist = await User.findOne({ where: { email: req.body.email } });
 
-    if (UserExist) {
+    if (userExist) {
       return res.status(400).json({ error: 'Usuário já cadastrado' });
     }
 
