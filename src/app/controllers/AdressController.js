@@ -96,6 +96,18 @@ class AddressController {
       user,
     });
   }
+
+  async delete(req, res) {
+    const address = await Address.findByPk(req.params.id);
+
+    if (!address) {
+      return res.status(400).json({ error: 'Endereço não encontrado' });
+    }
+
+    await address.destroy();
+
+    return res.send();
+  }
 }
 
 export default new AddressController();
