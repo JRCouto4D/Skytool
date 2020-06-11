@@ -25,4 +25,4 @@ class Address extends Model {
   }
 }
 
-export default new Address();
+export default Address;
