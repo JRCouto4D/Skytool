@@ -38,6 +38,64 @@ class AddressController {
 
     return res.json(address);
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      user_id: Yup.number(),
+      street: Yup.string(),
+      number: Yup.string(),
+      neighborhood: Yup.string(),
+      city: Yup.string(),
+      state: Yup.string(),
+      zip_code: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
+
+    const { user_id } = req.body;
+
+    const address = await Address.findByPk(req.params.id);
+
+    if (user_id !== address.user_id) {
+      const userExist = await User.findByPk(user_id);
+
+      if (!userExist) {
+        return res.status(400).json({ error: 'Usuário não registrado' });
+      }
+    }
+
+    await address.update(req.body);
+
+    const {
+      street,
+      number,
+      neighborhood,
+      city,
+      state,
+      zip_code,
+      user,
+    } = await Address.findByPk(user_id, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
+
+    return res.json({
+      street,
+      number,
+      neighborhood,
+      city,
+      state,
+      zip_code,
+      user,
+    });
+  }
 }
 
 export default new AddressController();
