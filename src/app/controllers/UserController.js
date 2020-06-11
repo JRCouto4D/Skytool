@@ -30,6 +30,22 @@ class UserController {
       sector,
     });
   }
+
+  async update(req, res) {
+    return res.json({ mensage: true });
+  }
+
+  async delete(req, res) {
+    return res.send();
+  }
+
+  async index(req, res) {
+    return res.json({ mensage: true });
+  }
+
+  async show(req, res) {
+    return res.json({ mensage: true });
+  }
 }
 
 export default new UserController();
