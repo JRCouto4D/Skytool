@@ -5,7 +5,6 @@ import User from '../models/User';
 class AddressController {
   async store(req, res) {
     const schema = Yup.object().shape({
-      user_id: Yup.number().required(),
       street: Yup.string().required(),
       number: Yup.string().required(),
       neighborhood: Yup.string().required(),
@@ -18,14 +17,8 @@ class AddressController {
       return res.status(400).json({ error: 'Dados inválidos' });
     }
 
-    const userExist = await User.findByPk(req.body.user_id);
-
-    if (!userExist) {
-      return res.status(400).json({ error: 'Usuário não registrado' });
-    }
-
     const limitAdresses = await Address.findAll({
-      where: { user_id: req.body.user_id },
+      where: { user_id: req.userId },
     });
 
     if (limitAdresses.length >= 3) {
@@ -34,14 +27,15 @@ class AddressController {
         .json({ error: 'Exedido limite de registro de endereços' });
     }
 
-    const address = await Address.create(req.body);
+    const data = { user_id: req.userId, ...req.body };
+
+    const address = await Address.create(data);
 
     return res.json(address);
   }
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      user_id: Yup.number(),
       street: Yup.string(),
       number: Yup.string(),
       neighborhood: Yup.string(),
@@ -53,8 +47,6 @@ class AddressController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Dados inválidos' });
     }
-
-    const { user_id } = req.body;
 
     const address = await Address.findByPk(req.params.id, {
       include: [
@@ -70,12 +62,8 @@ class AddressController {
       return res.status(400).json({ error: 'Endereço não encontrado' });
     }
 
-    if (user_id && user_id !== address.user_id) {
-      const userExist = await User.findByPk(user_id);
-
-      if (!userExist) {
-        return res.status(400).json({ error: 'Usuário não registrado' });
-      }
+    if (req.userId !== address.user_id) {
+      return res.status(400).json({ error: 'Operação não autorizada' });
     }
 
     await address.update(req.body);
@@ -88,6 +76,10 @@ class AddressController {
 
     if (!address) {
       return res.status(400).json({ error: 'Endereço não encontrado' });
+    }
+
+    if (address.user_id !== req.userId) {
+      return res.status(400).json({ error: 'Operação não autorizada' });
     }
 
     await address.destroy();
