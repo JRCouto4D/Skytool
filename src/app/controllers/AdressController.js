@@ -56,27 +56,7 @@ class AddressController {
 
     const { user_id } = req.body;
 
-    const address = await Address.findByPk(req.params.id);
-
-    if (user_id !== address.user_id) {
-      const userExist = await User.findByPk(user_id);
-
-      if (!userExist) {
-        return res.status(400).json({ error: 'Usuário não registrado' });
-      }
-    }
-
-    await address.update(req.body);
-
-    const {
-      street,
-      number,
-      neighborhood,
-      city,
-      state,
-      zip_code,
-      user,
-    } = await Address.findByPk(user_id, {
+    const address = await Address.findByPk(req.params.id, {
       include: [
         {
           model: User,
@@ -86,15 +66,21 @@ class AddressController {
       ],
     });
 
-    return res.json({
-      street,
-      number,
-      neighborhood,
-      city,
-      state,
-      zip_code,
-      user,
-    });
+    if (!address) {
+      return res.status(400).json({ error: 'Endereço não encontrado' });
+    }
+
+    if (user_id && user_id !== address.user_id) {
+      const userExist = await User.findByPk(user_id);
+
+      if (!userExist) {
+        return res.status(400).json({ error: 'Usuário não registrado' });
+      }
+    }
+
+    await address.update(req.body);
+
+    return res.json(address);
   }
 
   async delete(req, res) {
