@@ -50,7 +50,7 @@ class UserController {
       return res.status(400).json({ error: 'Dados Iválidos' });
     }
 
-    const { email, oldPassword } = req.body;
+    const { email, oldPassword, password } = req.body;
 
     const user = await User.findByPk(req.params.id);
 
@@ -68,6 +68,10 @@ class UserController {
 
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
       return res.status(401).json({ error: 'Senhas não conferem.' });
+    }
+
+    if (password && !oldPassword) {
+      return res.status(401).json({ error: 'Informe sua senha atual' });
     }
 
     const { id, name } = await user.update(req.body);
