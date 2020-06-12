@@ -52,10 +52,10 @@ class UserController {
 
     const { email, oldPassword, password } = req.body;
 
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.userId);
 
     if (email && email !== user.email) {
-      const checkEmail = await User.findAll({
+      const checkEmail = await User.findOne({
         where: {
           email,
         },
