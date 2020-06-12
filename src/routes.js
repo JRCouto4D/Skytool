@@ -7,6 +7,7 @@ import FileController from './app/controllers/FileController';
 import UserController from './app/controllers/UserController';
 import AddressController from './app/controllers/AdressController';
 import SessionController from './app/controllers/SessionController';
+import PhoneCOntroller from './app/controllers/PhoneController';
 
 import multerConfig from './config/multer';
 
@@ -32,5 +33,10 @@ routes.get('/users/:id', UserController.show);
 routes.post('/adresses', AddressController.store);
 routes.put('/adresses/:id', AddressController.update);
 routes.delete('/adresses/:id', AddressController.delete);
+
+routes.post('/phones', PhoneCOntroller.store);
+routes.put('/phones/:id', PhoneCOntroller.update);
+routes.delete('/phones/:id', PhoneCOntroller.delete);
+routes.get('/phones', PhoneCOntroller.index);
 
 export default routes;
