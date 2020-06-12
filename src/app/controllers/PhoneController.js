@@ -12,7 +12,19 @@ class PhoneController {
       return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
-    const dados = { id: req.userId, ...req.body };
+    const limitPhones = await Phone.findAll({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    if (limitPhones.length >= 3) {
+      return res
+        .status(400)
+        .json({ error: 'Exedido numero de telefones permitido por usuário' });
+    }
+
+    const dados = { user_id: req.userId, ...req.body };
 
     const phone = await Phone.create(dados);
 
