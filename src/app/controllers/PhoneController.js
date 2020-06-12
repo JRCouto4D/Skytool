@@ -60,7 +60,15 @@ class PhoneController {
   }
 
   async delete(req, res) {
-    return res.json({ mensage: true });
+    const phone = await Phone.findByPk(req.params.id);
+
+    if (!phone) {
+      return res.status(401).json({ error: 'Telefone não encontrado.' });
+    }
+
+    await phone.destroy();
+
+    return res.send();
   }
 
   async index(req, res) {
