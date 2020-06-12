@@ -32,7 +32,31 @@ class PhoneController {
   }
 
   async update(req, res) {
-    return res.json({ mensage: true });
+    const schema = Yup.object().shape({
+      number: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
+
+    const phone = await Phone.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
+
+    const { id, number, user } = await phone.update(req.body);
+
+    return res.json({
+      id,
+      number,
+      user,
+    });
   }
 
   async delete(req, res) {
