@@ -6,7 +6,7 @@ class Ad extends Model {
       {
         description: Sequelize.STRING,
         sector: Sequelize.STRING,
-        status: Sequelize.STRING,
+        active: Sequelize.BOOLEAN,
       },
       {
         sequelize,
