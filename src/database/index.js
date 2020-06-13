@@ -5,8 +5,9 @@ import User from '../app/models/User';
 import File from '../app/models/File';
 import Address from '../app/models/Address';
 import Phone from '../app/models/Phone';
+import Ad from '../app/models/Ad';
 
-const models = [User, File, Address, Phone];
+const models = [User, File, Address, Phone, Ad];
 
 class DataBase {
   constructor() {
