@@ -81,6 +81,8 @@ class AdController {
   }
 
   async index(req, res) {
+    const total = await Ad.count();
+
     const ad = await Ad.findAll({
       include: [
         {
@@ -103,7 +105,7 @@ class AdController {
       ],
     });
 
-    return res.json(ad);
+    return res.json({ ad, total });
   }
 
   async show(req, res) {
