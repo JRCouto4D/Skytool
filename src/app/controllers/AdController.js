@@ -81,7 +81,29 @@ class AdController {
   }
 
   async index(req, res) {
-    return res.json({ mensage: true });
+    const ad = await Ad.findAll({
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json(ad);
   }
 
   async show(req, res) {
