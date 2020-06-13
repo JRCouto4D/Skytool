@@ -23,7 +23,47 @@ class AdController {
   }
 
   async update(req, res) {
-    return res.json({ mensage: true });
+    const schema = Yup.object().shape({
+      description: Yup.string(),
+      status: Yup.string(),
+      sector: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Dados inválidos.' });
+    }
+
+    const ad = await Ad.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!ad) {
+      return res.status(400).json({ error: 'Ads não encontrada.' });
+    }
+
+    const { id, description, sector, status, user, image } = await ad.update(
+      req.body
+    );
+
+    return res.json({
+      id,
+      description,
+      sector,
+      status,
+      user,
+      image,
+    });
   }
 
   async delete(req, res) {
