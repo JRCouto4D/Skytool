@@ -109,7 +109,40 @@ class AdController {
   }
 
   async show(req, res) {
-    return res.json({ mensage: true });
+    const total = await Ad.count({
+      where: {
+        user_id: req.userId,
+        active: true,
+      },
+    });
+
+    const ads = await Ad.findAll({
+      where: {
+        user_id: req.userId,
+        active: true,
+      },
+      include: [
+        {
+          model: User,
+          as: 'users',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json({ ads, total });
   }
 }
 
