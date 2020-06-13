@@ -67,7 +67,17 @@ class AdController {
   }
 
   async delete(req, res) {
-    return res.json({ mensage: true });
+    const ad = await Ad.findByPk(req.params.id);
+
+    if (req.userId !== ad.user_id || !ad) {
+      return res
+        .status(401)
+        .json({ error: 'Não foi possível finalizar a operação' });
+    }
+
+    await ad.destroy();
+
+    return res.send();
   }
 
   async index(req, res) {
