@@ -8,7 +8,6 @@ class AdController {
     const schema = Yup.object().shape({
       description: Yup.string().required(),
       sector: Yup.string().required(),
-      status: Yup.string().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -25,7 +24,6 @@ class AdController {
   async update(req, res) {
     const schema = Yup.object().shape({
       description: Yup.string(),
-      status: Yup.string(),
       sector: Yup.string(),
     });
 
@@ -52,7 +50,7 @@ class AdController {
       return res.status(400).json({ error: 'Ads não encontrada.' });
     }
 
-    const { id, description, sector, status, user, image } = await ad.update(
+    const { id, description, sector, active, user, image } = await ad.update(
       req.body
     );
 
@@ -60,7 +58,7 @@ class AdController {
       id,
       description,
       sector,
-      status,
+      active,
       user,
       image,
     });
@@ -109,7 +107,40 @@ class AdController {
   }
 
   async show(req, res) {
-    return res.json({ mensage: true });
+    const total = await Ad.count({
+      where: {
+        user_id: req.userId,
+        active: true,
+      },
+    });
+
+    const ads = await Ad.findAll({
+      where: {
+        user_id: req.userId,
+        active: true,
+      },
+      include: [
+        {
+          model: User,
+          as: 'users',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json({ ads, total });
   }
 }
 
