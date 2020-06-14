@@ -89,7 +89,19 @@ class ProductController {
   }
 
   async delete(req, res) {
-    return res.json({ mensage: true });
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(401).json({ error: 'Produto não encontrado' });
+    }
+
+    if (product.user_id !== req.userId) {
+      return res.status(400).json({ error: 'Operação não autorizada' });
+    }
+
+    await product.destroy();
+
+    return res.send();
   }
 
   async index(req, res) {
