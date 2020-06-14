@@ -30,7 +30,62 @@ class ProductController {
   }
 
   async update(req, res) {
-    return res.json({ mensage: true });
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      description: Yup.string(),
+      value: Yup.number(),
+      sector: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
+
+    const product = await Product.findByPk(req.params.id);
+
+    if (product.user_id !== req.userId) {
+      return res.status(400).json({ error: 'Operação não autorizada.' });
+    }
+
+    await product.update(req.body);
+
+    const {
+      name,
+      description,
+      value,
+      sector,
+      user,
+      image,
+    } = await Product.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json({
+      name,
+      description,
+      value,
+      sector,
+      user,
+      image,
+    });
   }
 
   async delete(req, res) {
