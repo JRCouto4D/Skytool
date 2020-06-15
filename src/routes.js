@@ -9,6 +9,7 @@ import AddressController from './app/controllers/AdressController';
 import SessionController from './app/controllers/SessionController';
 import PhoneCOntroller from './app/controllers/PhoneController';
 import AdController from './app/controllers/AdController';
+import ProductController from './app/controllers/ProductController';
 
 import multerConfig from './config/multer';
 
@@ -45,5 +46,11 @@ routes.put('/ads/:id', AdController.update);
 routes.delete('/ads/:id', AdController.delete);
 routes.get('/ads', AdController.index);
 routes.get('/ads/:id', AdController.show);
+
+routes.post('/products', ProductController.store);
+routes.put('/products/:id', ProductController.update);
+routes.delete('/products/:id', ProductController.delete);
+// routes.get('/products', ProductController.index);
+routes.get('/products', ProductController.show);
 
 export default routes;
