@@ -105,16 +105,32 @@ class ProductController {
   }
 
   async index(req, res) {
-    const total = await Product.count({
-      where: {
-        user_id: req.userId,
-      },
-    });
+    const { page = 1 } = req.query;
+    const total = await Product.count();
 
     const products = await Product.findAll({
-      where: {
-        user_id: req.userId,
-      },
+      limit: 5,
+      offset: (page - 1) * 5,
+      order: ['name'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
     });
 
     return res.json({ products, total });
