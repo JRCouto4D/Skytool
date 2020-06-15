@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Product from '../models/Product';
 import User from '../models/User';
 import File from '../models/File';
@@ -104,11 +105,22 @@ class ProductController {
     return res.send();
   }
 
-  async index(req, res) {
-    const { page = 1 } = req.query;
-    const total = await Product.count();
+  /*
+    async index(req, res) {
+      return res.json({ mensage: true });
+    }
+  */
+
+  async show(req, res) {
+    const { page = 1, search } = req.query;
+    const total = await Product.count({
+      where: {
+        name: { [Op.iLike]: `${search}%` },
+      },
+    });
 
     const products = await Product.findAll({
+      where: { name: { [Op.iLike]: `${search}%` } },
       limit: 5,
       offset: (page - 1) * 5,
       order: ['name'],
@@ -134,10 +146,6 @@ class ProductController {
     });
 
     return res.json({ products, total });
-  }
-
-  async show(req, res) {
-    return res.json({ mensage: true });
   }
 }
 
