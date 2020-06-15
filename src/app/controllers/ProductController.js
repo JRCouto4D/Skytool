@@ -105,7 +105,19 @@ class ProductController {
   }
 
   async index(req, res) {
-    return res.json({ mensage: true });
+    const total = await Product.count({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    const products = await Product.findAll({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    return res.json({ products, total });
   }
 
   async show(req, res) {
