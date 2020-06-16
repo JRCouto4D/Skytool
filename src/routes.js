@@ -10,7 +10,7 @@ import SessionController from './app/controllers/SessionController';
 import PhoneCOntroller from './app/controllers/PhoneController';
 import AdController from './app/controllers/AdController';
 import ProductController from './app/controllers/ProductController';
-import SalesController from './app/controllers/SalesController';
+import SaleController from './app/controllers/SaleController';
 
 import multerConfig from './config/multer';
 
@@ -54,9 +54,9 @@ routes.delete('/products/:id', ProductController.delete);
 // routes.get('/products', ProductController.index);
 routes.get('/products', ProductController.show);
 
-routes.get('/sales', SalesController.show);
-routes.post('/sales', SalesController.store);
-routes.put('/sales/:id', SalesController.update);
-routes.delete('/sales/:id', SalesController.delete);
+routes.get('/sales', SaleController.show);
+routes.post('/sales', SaleController.store);
+routes.put('/sales/:id', SaleController.update);
+routes.delete('/sales/:id', SaleController.delete);
 
 export default routes;
