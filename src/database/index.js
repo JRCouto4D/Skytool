@@ -7,10 +7,10 @@ import Address from '../app/models/Address';
 import Phone from '../app/models/Phone';
 import Ad from '../app/models/Ad';
 import Product from '../app/models/Product';
-import Sales from '../app/models/Sales';
+import Sale from '../app/models/Sale';
 import Item from '../app/models/Item';
 
-const models = [User, File, Address, Phone, Ad, Product, Sales, Item];
+const models = [User, File, Address, Phone, Ad, Product, Sale, Item];
 
 class DataBase {
   constructor() {

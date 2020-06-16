@@ -17,7 +17,7 @@ class Item extends Model {
 
   static associate(models) {
     this.belongsTo(models.Product, { foreignKey: 'product_id', as: 'product' });
-    this.belongsTo(models.Sales, { foreignKey: 'sale_id', as: 'sale' });
+    this.belongsTo(models.Sale, { foreignKey: 'sale_id', as: 'sale' });
   }
 }
 
