@@ -4,7 +4,7 @@ class Sale extends Model {
   static init(sequelize) {
     super.init(
       {
-        total: Sequelize.DATE,
+        total: Sequelize.DOUBLE,
         payment: Sequelize.STRING,
         change_for: Sequelize.DOUBLE,
         production: Sequelize.DATE,

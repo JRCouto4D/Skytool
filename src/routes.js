@@ -11,6 +11,7 @@ import PhoneCOntroller from './app/controllers/PhoneController';
 import AdController from './app/controllers/AdController';
 import ProductController from './app/controllers/ProductController';
 import SaleController from './app/controllers/SaleController';
+import AddItem from './app/controllers/AddItem';
 
 import multerConfig from './config/multer';
 
@@ -58,5 +59,7 @@ routes.get('/sales', SaleController.show);
 routes.post('/sales', SaleController.store);
 routes.put('/sales/:id', SaleController.update);
 routes.delete('/sales/:id', SaleController.delete);
+
+routes.post('/addItem', AddItem.store);
 
 export default routes;
