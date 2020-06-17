@@ -12,6 +12,7 @@ import AdController from './app/controllers/AdController';
 import ProductController from './app/controllers/ProductController';
 import SaleController from './app/controllers/SaleController';
 import AddItem from './app/controllers/itensSale/AddItem';
+import RemoveItem from './app/controllers/itensSale/RemoveItem';
 
 import multerConfig from './config/multer';
 
@@ -62,5 +63,7 @@ routes.delete('/sales/:id', SaleController.delete);
 
 routes.post('/addItem', AddItem.store);
 routes.put('/addItem/:id', AddItem.update);
+
+routes.delete('/removeItem/:id', RemoveItem.delete);
 
 export default routes;
