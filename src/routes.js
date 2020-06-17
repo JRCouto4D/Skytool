@@ -11,7 +11,7 @@ import PhoneCOntroller from './app/controllers/PhoneController';
 import AdController from './app/controllers/AdController';
 import ProductController from './app/controllers/ProductController';
 import SaleController from './app/controllers/SaleController';
-import AddItem from './app/controllers/AddItem';
+import AddItem from './app/controllers/itensSale/AddItem';
 
 import multerConfig from './config/multer';
 

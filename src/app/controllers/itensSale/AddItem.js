@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import Product from '../models/Product';
-import Sale from '../models/Sale';
-import Item from '../models/Item';
+import Product from '../../models/Product';
+import Sale from '../../models/Sale';
+import Item from '../../models/Item';
 
 class AddItem {
   async store(req, res) {
