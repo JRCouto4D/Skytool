@@ -61,5 +61,6 @@ routes.put('/sales/:id', SaleController.update);
 routes.delete('/sales/:id', SaleController.delete);
 
 routes.post('/addItem', AddItem.store);
+routes.put('/addItem/:id', AddItem.update);
 
 export default routes;

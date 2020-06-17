@@ -47,6 +47,46 @@ class AddItem {
 
     return res.json(item);
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      amount: Yup.number(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Dados inválidos.' });
+    }
+
+    const { amount } = req.body;
+
+    const item = await Item.findByPk(req.params.id);
+
+    if (!item) {
+      return res.status(401).json({ error: 'Item não encontrado' });
+    }
+
+    const sale = await Sale.findByPk(item.sale_id);
+
+    if (!sale) {
+      return res.status(401).json({ error: 'Venda não encontrada' });
+    }
+
+    const product = await Product.findByPk(item.product_id);
+
+    if (!product) {
+      return res.status(401).json({ error: 'Produto não encontrado' });
+    }
+
+    await sale.update({ total: sale.total - product.value * item.amount });
+
+    const totalItem = sale.total + product.value * amount;
+
+    await sale.update({ total: totalItem });
+
+    await item.update(req.body);
+
+    return res.json(item);
+  }
 }
 
 export default new AddItem();
