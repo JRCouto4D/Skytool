@@ -14,6 +14,7 @@ import SaleController from './app/controllers/SaleController';
 import AddItem from './app/controllers/itensSale/AddItem';
 import RemoveItem from './app/controllers/itensSale/RemoveItem';
 import CompletedSale from './app/controllers/Sales/CompletedSale';
+import GoProduction from './app/controllers/Sales/GoProduction';
 
 import multerConfig from './config/multer';
 
@@ -68,5 +69,7 @@ routes.put('/addItem/:id', AddItem.update);
 routes.delete('/removeItem/:id', RemoveItem.delete);
 
 routes.put('/completed/sale/:id', CompletedSale.update);
+
+routes.put('/goproduction/:id', GoProduction.update);
 
 export default routes;
