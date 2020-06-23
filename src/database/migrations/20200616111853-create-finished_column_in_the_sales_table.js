@@ -7,6 +7,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('sales', 'finished');
+    return queryInterface.removeColumn('sales', 'finished');
   },
 };
