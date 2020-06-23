@@ -13,7 +13,7 @@ import ProductController from './app/controllers/ProductController';
 import SaleController from './app/controllers/SaleController';
 import AddItem from './app/controllers/itensSale/AddItem';
 import RemoveItem from './app/controllers/itensSale/RemoveItem';
-import CompletedSale from './app/controllers/itensSale/CompletedSale';
+import CompletedSale from './app/controllers/Sales/CompletedSale';
 
 import multerConfig from './config/multer';
 
