@@ -10,6 +10,7 @@ class Sale extends Model {
         production: Sequelize.DATE,
         delivered: Sequelize.DATE,
         canceled_at: Sequelize.DATE,
+        finished: Sequelize.DATE,
         completed_at: Sequelize.DATE,
       },
       {
