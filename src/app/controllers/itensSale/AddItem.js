@@ -29,6 +29,12 @@ class AddItem {
       return res.status(401).json({ error: 'Venda não encontrada' });
     }
 
+    if (checkSale.canceled_at !== null || checkSale.finished !== null) {
+      return res
+        .status(401)
+        .json({ error: 'Esta venda já foi cancelada ou finalizada' });
+    }
+
     if (checkProduct.user_id !== checkSale.provider_id) {
       return res.status(401).json({
         error:

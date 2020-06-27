@@ -18,6 +18,12 @@ class RemoveItem {
       return res.status(401).json({ error: 'Venda não encontrada' });
     }
 
+    if (sale.canceled_at !== null || sale.finished !== null) {
+      return res
+        .status(401)
+        .json({ error: 'Esta venda já foi cancelada ou finalizada' });
+    }
+
     const product = await Product.findByPk(item.product_id);
 
     if (!product) {
