@@ -18,6 +18,7 @@ import GoProduction from './app/controllers/Sales/GoProduction';
 import GoDelivery from './app/controllers/Sales/GoDelivery';
 import CanceledSale from './app/controllers/Sales/CanceledSale';
 import FinishedSale from './app/controllers/Sales/FinishedSale';
+import OpenProvider from './app/controllers/OpenProvider';
 
 import multerConfig from './config/multer';
 
@@ -39,6 +40,8 @@ routes.put('/users', UserController.update);
 routes.delete('/users/:id', UserController.delete);
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
+
+routes.put('/provider/open', OpenProvider.update);
 
 routes.post('/adresses', AddressController.store);
 routes.put('/adresses/:id', AddressController.update);
