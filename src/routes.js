@@ -17,6 +17,7 @@ import CompletedSale from './app/controllers/Sales/CompletedSale';
 import GoProduction from './app/controllers/Sales/GoProduction';
 import GoDelivery from './app/controllers/Sales/GoDelivery';
 import CanceledSale from './app/controllers/Sales/CanceledSale';
+import FinishedSale from './app/controllers/Sales/FinishedSale';
 
 import multerConfig from './config/multer';
 
@@ -77,5 +78,7 @@ routes.put('/goproduction/:id', GoProduction.update);
 routes.put('/godelivery/:id', GoDelivery.update);
 
 routes.put('/canceled/sale/:id', CanceledSale.update);
+
+routes.put('/finished/sale/:id', FinishedSale.update);
 
 export default routes;
