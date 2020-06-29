@@ -37,7 +37,7 @@ class CompletedSale {
     }
 
     if (address.user_id !== req.userId) {
-      return res.status(401).json({ error: 'Endereço não encotrado' });
+      return res.status(401).json({ error: 'Endereço não autorizado' });
     }
 
     const data = { ...req.body, completed_at: new Date() };
