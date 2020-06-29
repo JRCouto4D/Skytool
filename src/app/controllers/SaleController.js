@@ -30,6 +30,10 @@ class SalesController {
         .json({ error: 'Apenas prestadores de serviço podem realizar vendas' });
     }
 
+    if (!provider.open) {
+      return res.status(401).json({ error: 'Este prestador está fechado' });
+    }
+
     const checkSale = await Sales.findAll({
       where: {
         provider_id,
