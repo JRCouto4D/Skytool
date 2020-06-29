@@ -11,6 +11,7 @@ class User extends Model {
         password_hash: Sequelize.STRING,
         provider: Sequelize.BOOLEAN,
         sector: Sequelize.STRING,
+        open: Sequelize.BOOLEAN,
       },
       {
         sequelize,
