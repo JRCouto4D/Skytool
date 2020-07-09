@@ -13,6 +13,7 @@ class User extends Model {
         sector: Sequelize.STRING,
         open: Sequelize.BOOLEAN,
         evaluation: Sequelize.DOUBLE,
+        admin: Sequelize.BOOLEAN,
       },
       {
         sequelize,
