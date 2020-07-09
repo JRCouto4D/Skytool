@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import User from '../models/User';
 import File from '../models/File';
 
-class SearchProvider {
+class SearchProviderSector {
   async show(req, res) {
     const { name, page = 1 } = req.query;
     const { sector } = req.params;
@@ -46,4 +46,4 @@ class SearchProvider {
   }
 }
 
-export default new SearchProvider();
+export default new SearchProviderSector();
