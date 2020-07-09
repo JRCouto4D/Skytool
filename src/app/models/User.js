@@ -12,6 +12,7 @@ class User extends Model {
         provider: Sequelize.BOOLEAN,
         sector: Sequelize.STRING,
         open: Sequelize.BOOLEAN,
+        evaluation: Sequelize.DOUBLE,
       },
       {
         sequelize,
