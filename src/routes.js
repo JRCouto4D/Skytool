@@ -21,7 +21,7 @@ import FinishedSale from './app/controllers/Sales/FinishedSale';
 import OpenProvider from './app/controllers/OpenProvider';
 import CloseProvider from './app/controllers/CloseProvider';
 import ProviderController from './app/controllers/Admin/ProviderController';
-import SearchCategory from './app/controllers/SearchProvider';
+import SearchCategory from './app/controllers/SearchProviderSector';
 
 import multerConfig from './config/multer';
 
