@@ -39,6 +39,7 @@ routes.use(authMiddleware);
 routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/provider', ProviderController.store);
+routes.delete('/provider/:id', ProviderController.delete);
 
 routes.put('/users', UserController.update);
 routes.delete('/users/:id', UserController.delete);

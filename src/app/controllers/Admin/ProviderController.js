@@ -45,6 +45,28 @@ class ProviderController {
       sector,
     });
   }
+
+  async delete(req, res) {
+    const user = await User.findByPk(req.userId);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Admin não encontrado' });
+    }
+
+    if (!user.admin) {
+      return res.status(401).json({ error: 'Este usuário não é um admin' });
+    }
+
+    const provider = await User.findByPk(req.params.id);
+
+    if (!provider) {
+      return res.status(401).json({ error: 'Prestador não encontrado' });
+    }
+
+    await provider.destroy();
+
+    return res.send();
+  }
 }
 
 export default new ProviderController();
