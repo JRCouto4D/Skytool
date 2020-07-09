@@ -27,7 +27,7 @@ class SearchProvider {
       ],
       limit: 6,
       offset: (page - 1) * 6,
-      order: ['name'],
+      order: [['evaluation', 'DESC']],
       attributes: [
         'id',
         'name',
