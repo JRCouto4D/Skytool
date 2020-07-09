@@ -20,6 +20,7 @@ import CanceledSale from './app/controllers/Sales/CanceledSale';
 import FinishedSale from './app/controllers/Sales/FinishedSale';
 import OpenProvider from './app/controllers/OpenProvider';
 import CloseProvider from './app/controllers/CloseProvider';
+import ProviderController from './app/controllers/Admin/ProviderController';
 
 import multerConfig from './config/multer';
 
@@ -36,6 +37,8 @@ routes.post('/users', UserController.store);
 routes.use(authMiddleware);
 
 routes.post('/files', upload.single('file'), FileController.store);
+
+routes.post('/provider', ProviderController.store);
 
 routes.put('/users', UserController.update);
 routes.delete('/users/:id', UserController.delete);
