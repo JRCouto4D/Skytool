@@ -31,12 +31,12 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/session', SessionController.store);
+routes.post('/users', UserController.store);
 
 routes.use(authMiddleware);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
-routes.post('/users', UserController.store);
 routes.put('/users', UserController.update);
 routes.delete('/users/:id', UserController.delete);
 routes.get('/users', UserController.index);
