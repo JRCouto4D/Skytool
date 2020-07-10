@@ -105,37 +105,27 @@ class ProductController {
     return res.send();
   }
 
-  /*
-    async index(req, res) {
-      return res.json({ mensage: true });
-    }
-  */
+  async index(req, res) {
+    const { page = 1 } = req.query;
+    const { user_id, sector } = req.params;
 
-  async show(req, res) {
-    const { page = 1, search } = req.query;
     const total = await Product.count({
       where: {
-        name: { [Op.iLike]: `${search}%` },
+        user_id,
+        sector,
       },
     });
 
     const products = await Product.findAll({
-      where: { name: { [Op.iLike]: `${search}%` } },
-      limit: 5,
-      offset: (page - 1) * 5,
-      order: ['name'],
+      where: {
+        user_id,
+        sector,
+      },
       include: [
         {
           model: User,
           as: 'user',
           attributes: ['id', 'name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
         },
         {
           model: File,
@@ -143,6 +133,45 @@ class ProductController {
           attributes: ['name', 'path', 'url'],
         },
       ],
+      limit: 6,
+      offset: (page - 1) * 6,
+      order: [['name', 'ASC']],
+    });
+
+    return res.json({ products, total });
+  }
+
+  async show(req, res) {
+    const { page = 1, name } = req.query;
+    const { user_id } = req.params;
+
+    const total = await Product.count({
+      where: {
+        user_id,
+        name: { [Op.iLike]: `${name}%` },
+      },
+    });
+
+    const products = await Product.findAll({
+      where: {
+        user_id,
+        name: { [Op.iLike]: `${name}%` },
+      },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+      limit: 6,
+      offset: (page - 1) * 6,
+      order: [['name', 'ASC']],
     });
 
     return res.json({ products, total });
