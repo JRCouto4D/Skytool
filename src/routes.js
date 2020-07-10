@@ -70,8 +70,11 @@ routes.get('/ads/:id', AdController.show);
 routes.post('/products', ProductController.store);
 routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.delete);
-// routes.get('/products', ProductController.index);
-routes.get('/products', ProductController.show);
+routes.get('/products/provider/:user_id/', ProductController.index);
+routes.get(
+  '/products/provider/:user_id/category/:sector',
+  ProductController.show
+);
 
 routes.get('/sales', SaleController.show);
 routes.post('/sales', SaleController.store);
