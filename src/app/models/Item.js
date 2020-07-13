@@ -5,6 +5,7 @@ class Item extends Model {
     super.init(
       {
         amount: Sequelize.INTEGER,
+        comments: Sequelize.STRING,
       },
       {
         sequelize,
