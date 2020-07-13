@@ -9,6 +9,7 @@ class AddItem {
       product_id: Yup.number().required(),
       sale_id: Yup.number().required(),
       amount: Yup.number().required(),
+      comments: Yup.string(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -57,6 +58,7 @@ class AddItem {
   async update(req, res) {
     const schema = Yup.object().shape({
       amount: Yup.number(),
+      comments: Yup.string(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -83,11 +85,13 @@ class AddItem {
       return res.status(401).json({ error: 'Produto não encontrado' });
     }
 
-    await sale.update({ total: sale.total - product.value * item.amount });
+    if (amount) {
+      await sale.update({ total: sale.total - product.value * item.amount });
 
-    const totalItem = sale.total + product.value * amount;
+      const totalItem = sale.total + product.value * amount;
 
-    await sale.update({ total: totalItem });
+      await sale.update({ total: totalItem });
+    }
 
     await item.update(req.body);
 
