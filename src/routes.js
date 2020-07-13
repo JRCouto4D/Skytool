@@ -23,6 +23,7 @@ import CloseProvider from './app/controllers/CloseProvider';
 import ProviderController from './app/controllers/Admin/ProviderController';
 import SearchCategory from './app/controllers/SearchProviderSector';
 import SearchProvider from './app/controllers/SearchProvider';
+import Evaluation from './app/controllers/EvaluationController';
 
 import multerConfig from './config/multer';
 
@@ -51,6 +52,8 @@ routes.put('/provider/open', OpenProvider.update);
 routes.put('/provider/close', CloseProvider.update);
 routes.get('/provider/category/:sector', SearchCategory.show);
 routes.get('/provider', SearchProvider.show);
+routes.post('/provider/:provider_id/evaluation', Evaluation.store);
+routes.put('/provider/:provider_id/evaluation', Evaluation.update);
 
 routes.post('/adresses', AddressController.store);
 routes.put('/adresses/:id', AddressController.update);
