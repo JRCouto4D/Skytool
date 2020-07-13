@@ -73,6 +73,58 @@ class EvaluationController {
 
     return res.json(evaluation);
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      note: Yup.number().required(),
+    });
+
+    if (!schema.isValid(req.body)) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
+
+    const { provider_id } = req.params;
+    const { note } = req.body;
+
+    const provider = await User.findByPk(provider_id);
+
+    if (!provider) {
+      return res.status(401).json({ error: 'Prestador não encontrado' });
+    }
+
+    const evaluation = await Evaluation.findOne({
+      where: {
+        provider_id,
+      },
+    });
+
+    if (!evaluation) {
+      return res.status(401).json({ error: 'Você não avaliou este prestador' });
+    }
+
+    await evaluation.update({
+      note,
+    });
+
+    const assessments = await Evaluation.findAll({
+      where: {
+        provider_id,
+      },
+    });
+
+    const total = assessments.reduce(
+      (acumulador, elemento) => acumulador + elemento.note,
+      0
+    );
+
+    const media = total / assessments.length;
+
+    await provider.update({
+      evaluation: Number(media.toFixed(2)),
+    });
+
+    return res.json(evaluation);
+  }
 }
 
 export default new EvaluationController();

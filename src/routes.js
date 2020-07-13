@@ -53,6 +53,7 @@ routes.put('/provider/close', CloseProvider.update);
 routes.get('/provider/category/:sector', SearchCategory.show);
 routes.get('/provider', SearchProvider.show);
 routes.post('/provider/:provider_id/evaluation', Evaluation.store);
+routes.put('/provider/:provider_id/evaluation', Evaluation.update);
 
 routes.post('/adresses', AddressController.store);
 routes.put('/adresses/:id', AddressController.update);
