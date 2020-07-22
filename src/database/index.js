@@ -10,6 +10,7 @@ import Product from '../app/models/Product';
 import Sale from '../app/models/Sale';
 import Item from '../app/models/Item';
 import Evaluation from '../app/models/Evaluation';
+import Category from '../app/models/Category';
 
 const models = [
   User,
@@ -21,6 +22,7 @@ const models = [
   Sale,
   Item,
   Evaluation,
+  Category,
 ];
 
 class DataBase {
