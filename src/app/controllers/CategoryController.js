@@ -85,6 +85,24 @@ class CategoryController {
       image_id,
     });
   }
+
+  async delete(req, res) {
+    const user = await User.findByPk(req.userId);
+
+    if (!user.admin) {
+      return res.status(401).json({ error: 'Este usuário não é um admin' });
+    }
+
+    const category = await Category.findByPk(req.params.id);
+
+    if (!category) {
+      return res.status(401).json({ error: 'Categoria não encontrada' });
+    }
+
+    await category.destroy();
+
+    return res.send();
+  }
 }
 
 export default new CategoryController();
