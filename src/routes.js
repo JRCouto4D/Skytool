@@ -88,6 +88,7 @@ routes.delete('/sales/:id', SaleController.delete);
 routes.post('/categories', Category.store);
 routes.put('/categories/:id', Category.update);
 routes.delete('/categories/:id', Category.delete);
+routes.get('/categories', Category.show);
 
 routes.post('/addItem', AddItem.store);
 routes.put('/addItem/:id', AddItem.update);

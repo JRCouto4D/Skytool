@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Category from '../models/Category';
 import File from '../models/File';
 import User from '../models/User';
@@ -102,6 +103,39 @@ class CategoryController {
     await category.destroy();
 
     return res.send();
+  }
+
+  async show(req, res) {
+    const user = await User.findByPk(req.userId);
+    const { name, page = 1 } = req.query;
+
+    if (!user.admin) {
+      return res.status(401).json({ error: 'Este usuário não é um admin' });
+    }
+
+    const total = await Category.count({
+      where: {
+        name: { [Op.iLike]: `${name}%` },
+      },
+    });
+
+    const categories = await Category.findAll({
+      where: {
+        name: { [Op.iLike]: `${name}%` },
+      },
+      include: [
+        {
+          model: File,
+          as: 'image',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+      limit: 30,
+      offset: (page - 1) * 30,
+      order: [['name', 'ASC']],
+    });
+
+    return res.json({ categories, total });
   }
 }
 
