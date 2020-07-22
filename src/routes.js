@@ -24,6 +24,7 @@ import ProviderController from './app/controllers/Admin/ProviderController';
 import SearchCategory from './app/controllers/SearchProviderSector';
 import SearchProvider from './app/controllers/SearchProvider';
 import Evaluation from './app/controllers/EvaluationController';
+import Category from './app/controllers/CategoryController';
 
 import multerConfig from './config/multer';
 
@@ -83,6 +84,11 @@ routes.get('/sales', SaleController.show);
 routes.post('/sales', SaleController.store);
 routes.put('/sales/:id', SaleController.update);
 routes.delete('/sales/:id', SaleController.delete);
+
+routes.post('/categories', Category.store);
+routes.put('/categories/:id', Category.update);
+routes.delete('/categories/:id', Category.delete);
+routes.get('/categories', Category.show);
 
 routes.post('/addItem', AddItem.store);
 routes.put('/addItem/:id', AddItem.update);
