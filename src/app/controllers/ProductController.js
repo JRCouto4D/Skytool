@@ -23,7 +23,7 @@ class ProductController {
       return res.status(400).json({ error: 'O usuário deve ser um prestador' });
     }
 
-    const dados = { user_id: req.userId, ...req.body };
+    const dados = { provider_id: req.userId, ...req.body };
 
     const product = await Product.create(dados);
 
@@ -44,7 +44,7 @@ class ProductController {
 
     const product = await Product.findByPk(req.params.id);
 
-    if (product.user_id !== req.userId) {
+    if (product.provider_id !== req.userId) {
       return res.status(400).json({ error: 'Operação não autorizada.' });
     }
 
@@ -55,13 +55,13 @@ class ProductController {
       description,
       value,
       sector,
-      user,
+      provider,
       image,
     } = await Product.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          as: 'user',
+          as: 'provider',
           attributes: ['name', 'email'],
           include: [
             {
@@ -84,7 +84,7 @@ class ProductController {
       description,
       value,
       sector,
-      user,
+      provider,
       image,
     });
   }
@@ -96,7 +96,7 @@ class ProductController {
       return res.status(401).json({ error: 'Produto não encontrado' });
     }
 
-    if (product.user_id !== req.userId) {
+    if (product.provider_id !== req.userId) {
       return res.status(400).json({ error: 'Operação não autorizada' });
     }
 
@@ -107,24 +107,24 @@ class ProductController {
 
   async index(req, res) {
     const { page = 1 } = req.query;
-    const { user_id, sector } = req.params;
+    const { provider_id, sector } = req.params;
 
     const total = await Product.count({
       where: {
-        user_id,
+        provider_id,
         sector,
       },
     });
 
     const products = await Product.findAll({
       where: {
-        user_id,
+        provider_id,
         sector,
       },
       include: [
         {
           model: User,
-          as: 'user',
+          as: 'provider',
           attributes: ['id', 'name', 'email'],
         },
         {
@@ -143,24 +143,24 @@ class ProductController {
 
   async show(req, res) {
     const { page = 1, name } = req.query;
-    const { user_id } = req.params;
+    const { provider_id } = req.params;
 
     const total = await Product.count({
       where: {
-        user_id,
+        provider_id,
         name: { [Op.iLike]: `${name}%` },
       },
     });
 
     const products = await Product.findAll({
       where: {
-        user_id,
+        provider_id,
         name: { [Op.iLike]: `${name}%` },
       },
       include: [
         {
           model: User,
-          as: 'user',
+          as: 'provider',
           attributes: ['id', 'name', 'email'],
         },
         {

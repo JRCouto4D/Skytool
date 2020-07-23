@@ -12,15 +12,15 @@ class GoDelivery {
       return res.status(401).json({ error: 'Operação não autorizada.' });
     }
 
-    const { id, user_id, provider_id, delivered } = await sale.update({
-      delivered: new Date(),
+    const { id, user_id, provider_id, delivered_at } = await sale.update({
+      delivered_at: new Date(),
     });
 
     return res.json({
       id,
       user_id,
       provider_id,
-      delivered,
+      delivered_at,
     });
   }
 }

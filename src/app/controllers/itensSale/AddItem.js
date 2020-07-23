@@ -30,13 +30,13 @@ class AddItem {
       return res.status(401).json({ error: 'Venda não encontrada' });
     }
 
-    if (checkSale.canceled_at !== null || checkSale.finished !== null) {
+    if (checkSale.canceled_at !== null || checkSale.finished_at !== null) {
       return res
         .status(401)
         .json({ error: 'Esta venda já foi cancelada ou finalizada' });
     }
 
-    if (checkProduct.user_id !== checkSale.provider_id) {
+    if (checkProduct.provider_id !== checkSale.provider_id) {
       return res.status(401).json({
         error:
           'Ação não autorizada. Este produto não está vinculado ao prestador',

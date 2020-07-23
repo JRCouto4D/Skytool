@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import Category from '../models/Category';
 
 class UserController {
   async store(req, res) {
@@ -7,7 +8,8 @@ class UserController {
       name: Yup.string().required(),
       email: Yup.string().email().required(),
       password: Yup.string().required().min(6),
-      sector: Yup.string(),
+      category_id: Yup.number(),
+      provider: Yup.boolean(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -20,14 +22,38 @@ class UserController {
       return res.status(400).json({ error: 'Usuário já cadastrado' });
     }
 
-    const { id, name, email, provider, sector } = await User.create(req.body);
+    if (req.body.category_id) {
+      const checkCategory = await Category.findByPk(req.body.category_id);
+
+      if (!checkCategory) {
+        return res
+          .status(401)
+          .json({ error: 'Esta categoria não está registrada' });
+      }
+    }
+
+    if (req.body.provider) {
+      if (req.userId) {
+        const checkUser = await User.findByPk(req.userId);
+
+        if (checkUser && checkUser.admin) {
+          return res.status(401).json({
+            error: 'Você não está logado ou não é um admin do Skytool.',
+          });
+        }
+      }
+    }
+
+    const { id, name, email, provider, category_id } = await User.create(
+      req.body
+    );
 
     return res.json({
       id,
       name,
       email,
       provider,
-      sector,
+      category_id,
     });
   }
 
@@ -74,12 +100,25 @@ class UserController {
       return res.status(401).json({ error: 'Informe sua senha atual' });
     }
 
-    const { id, name } = await user.update(req.body);
+    const { category_id } = req.body;
+
+    if (category_id && category_id !== user.category_id) {
+      const checkCategory = await Category.findByPk(category_id);
+
+      if (!checkCategory) {
+        return res
+          .status(401)
+          .json({ error: 'Esta categoria não está registrada' });
+      }
+    }
+
+    const { id, name, category_id: category } = await user.update(req.body);
 
     return res.json({
       id,
       name,
       email,
+      category,
     });
   }
 

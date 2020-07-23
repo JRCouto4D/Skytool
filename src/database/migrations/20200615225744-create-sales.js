@@ -33,11 +33,19 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: true,
       },
-      production: {
+      finished_at: {
         type: Sequelize.DATE,
         allowNull: true,
       },
-      delivered: {
+      production_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      delivered_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      completed_at: {
         type: Sequelize.DATE,
         allowNull: true,
       },

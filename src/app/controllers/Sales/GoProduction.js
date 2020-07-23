@@ -12,15 +12,15 @@ class GoProduction {
       return res.status(401).json({ error: 'Operação não autorizada.' });
     }
 
-    const { id, user_id, provider_id, production } = await sale.update({
-      production: new Date(),
+    const { id, user_id, provider_id, production_at } = await sale.update({
+      production_at: new Date(),
     });
 
     return res.json({
       id,
       user_id,
       provider_id,
-      production,
+      production_at,
     });
   }
 }

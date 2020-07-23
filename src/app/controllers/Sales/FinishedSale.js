@@ -25,13 +25,13 @@ class Finished {
     const user = await User.findByPk(req.userId);
 
     if (sale.provider_id === user.id) {
-      if (sale.production === null) {
+      if (sale.production_at === null) {
         return res
           .status(401)
           .json({ error: 'Venda ainda não foi para produção' });
       }
 
-      if (sale.delivered === null) {
+      if (sale.delivered_at === null) {
         return res
           .status(401)
           .json({ error: 'Esta venda ainda não saiu para entrega' });
@@ -41,7 +41,7 @@ class Finished {
         return res.status(401).json({ error: 'Esta venda foi cancelada' });
       }
 
-      if (sale.finished !== null) {
+      if (sale.finished_at !== null) {
         return res.status(401).json({ error: 'Esta venda já foi finalizada' });
       }
     } else {
@@ -54,8 +54,8 @@ class Finished {
       payment,
       change_to,
       completed_at,
-      finished,
-    } = await sale.update({ finished: new Date() });
+      finished_at,
+    } = await sale.update({ finished_at: new Date() });
 
     return res.json({
       id,
@@ -65,7 +65,7 @@ class Finished {
       payment,
       change_to,
       completed_at,
-      finished,
+      finished_at,
     });
   }
 }

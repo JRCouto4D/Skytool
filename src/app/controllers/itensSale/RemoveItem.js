@@ -18,7 +18,7 @@ class RemoveItem {
       return res.status(401).json({ error: 'Venda não encontrada' });
     }
 
-    if (sale.canceled_at !== null || sale.finished !== null) {
+    if (sale.canceled_at !== null || sale.finished_at !== null) {
       return res
         .status(401)
         .json({ error: 'Esta venda já foi cancelada ou finalizada' });

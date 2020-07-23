@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      user_id: {
+      provider_id: {
         type: Sequelize.INTEGER,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',

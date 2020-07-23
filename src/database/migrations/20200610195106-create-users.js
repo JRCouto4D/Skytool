@@ -25,9 +25,19 @@ module.exports = {
         defaultValue: false,
         allowNull: false,
       },
-      sector: {
-        type: Sequelize.STRING,
+      open: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
+      evaluation: {
+        type: Sequelize.DOUBLE,
         allowNull: true,
+      },
+      admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,

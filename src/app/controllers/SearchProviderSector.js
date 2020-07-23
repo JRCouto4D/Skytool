@@ -5,12 +5,12 @@ import File from '../models/File';
 class SearchProviderSector {
   async show(req, res) {
     const { name, page = 1 } = req.query;
-    const { sector } = req.params;
+    const { category_id } = req.params;
 
     const total = await User.count({
       where: {
         provider: true,
-        sector: { [Op.iLike]: `${sector}` },
+        category_id: { [Op.iLike]: `${category_id}` },
         name: { [Op.iLike]: `${name}%` },
       },
     });
@@ -18,7 +18,7 @@ class SearchProviderSector {
     const providers = await User.findAll({
       where: {
         provider: true,
-        sector: { [Op.iLike]: `${sector}` },
+        category_id: { [Op.iLike]: `${category_id}` },
         name: { [Op.iLike]: `${name}%` },
       },
       include: [
@@ -35,7 +35,7 @@ class SearchProviderSector {
         'id',
         'name',
         'email',
-        'sector',
+        'category_id',
         'provider',
         'open',
         'evaluation',
