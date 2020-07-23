@@ -37,7 +37,7 @@ class SalesController {
     const checkSale = await Sales.findAll({
       where: {
         provider_id,
-        finished: null,
+        finished_at: null,
       },
     });
 

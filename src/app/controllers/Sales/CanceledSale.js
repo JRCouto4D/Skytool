@@ -17,7 +17,7 @@ class CanceledSale {
       return res.status(401).json({ error: 'Venda não encontrada' });
     }
 
-    if (sale.canceled_at !== null || sale.finished !== null) {
+    if (sale.canceled_at !== null || sale.finished_at !== null) {
       return res
         .status(401)
         .json({ error: 'Esta venda já foi cancelada ou finalizada' });
@@ -30,7 +30,7 @@ class CanceledSale {
         return res.status(401).json({ error: 'Operação não autorizada' });
       }
 
-      if (sale.delivered !== null) {
+      if (sale.delivered_at !== null) {
         return res
           .status(401)
           .json({ error: 'Encomenda já saiu para entrega' });
@@ -47,10 +47,10 @@ class CanceledSale {
       provider_id,
       total,
       canceled_at,
-      finished,
+      finished_at,
     } = await sale.update({
       canceled_at: new Date(),
-      finished: new Date(),
+      finished_at: new Date(),
     });
 
     return res.json({
@@ -59,7 +59,7 @@ class CanceledSale {
       provider_id,
       total,
       canceled_at,
-      finished,
+      finished_at,
     });
   }
 }

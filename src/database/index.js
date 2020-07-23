@@ -5,7 +5,7 @@ import User from '../app/models/User';
 import File from '../app/models/File';
 import Address from '../app/models/Address';
 import Phone from '../app/models/Phone';
-import Ad from '../app/models/Ad';
+import Advertisement from '../app/models/Advertisement';
 import Product from '../app/models/Product';
 import Sale from '../app/models/Sale';
 import Item from '../app/models/Item';
@@ -17,7 +17,7 @@ const models = [
   File,
   Address,
   Phone,
-  Ad,
+  Advertisement,
   Product,
   Sale,
   Item,

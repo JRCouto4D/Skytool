@@ -8,7 +8,7 @@ import UserController from './app/controllers/UserController';
 import AddressController from './app/controllers/AdressController';
 import SessionController from './app/controllers/SessionController';
 import PhoneCOntroller from './app/controllers/PhoneController';
-import AdController from './app/controllers/AdController';
+import AdvertisementController from './app/controllers/AdvertisementController';
 import ProductController from './app/controllers/ProductController';
 import SaleController from './app/controllers/SaleController';
 import AddItem from './app/controllers/itensSale/AddItem';
@@ -65,18 +65,18 @@ routes.put('/phones/:id', PhoneCOntroller.update);
 routes.delete('/phones/:id', PhoneCOntroller.delete);
 routes.get('/phones', PhoneCOntroller.index);
 
-routes.post('/ads', AdController.store);
-routes.put('/ads/:id', AdController.update);
-routes.delete('/ads/:id', AdController.delete);
-routes.get('/ads', AdController.index);
-routes.get('/ads/:id', AdController.show);
+routes.post('/adverts', AdvertisementController.store);
+routes.put('/adverts/:id', AdvertisementController.update);
+routes.delete('/adverts/:id', AdvertisementController.delete);
+routes.get('/adverts', AdvertisementController.index);
+routes.get('/adverts/:id', AdvertisementController.show);
 
 routes.post('/products', ProductController.store);
 routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.delete);
-routes.get('/products/provider/:user_id/', ProductController.show);
+routes.get('/products/provider/:provider_id/', ProductController.show);
 routes.get(
-  '/products/provider/:user_id/category/:sector',
+  '/products/provider/:provider_id/category/:sector',
   ProductController.index
 );
 
@@ -84,6 +84,11 @@ routes.get('/sales', SaleController.show);
 routes.post('/sales', SaleController.store);
 routes.put('/sales/:id', SaleController.update);
 routes.delete('/sales/:id', SaleController.delete);
+routes.put('/sale/:id/goproduction', GoProduction.update);
+routes.put('/sale/:id/godelivery', GoDelivery.update);
+routes.put('/sale/:id/completed', CompletedSale.update);
+routes.put('/sale/:id/canceled', CanceledSale.update);
+routes.put('/sale/:id/finished', FinishedSale.update);
 
 routes.post('/categories', Category.store);
 routes.put('/categories/:id', Category.update);
@@ -94,15 +99,5 @@ routes.post('/addItem', AddItem.store);
 routes.put('/addItem/:id', AddItem.update);
 
 routes.delete('/removeItem/:id', RemoveItem.delete);
-
-routes.put('/completed/sale/:id', CompletedSale.update);
-
-routes.put('/goproduction/:id', GoProduction.update);
-
-routes.put('/godelivery/:id', GoDelivery.update);
-
-routes.put('/canceled/sale/:id', CanceledSale.update);
-
-routes.put('/finished/sale/:id', FinishedSale.update);
 
 export default routes;

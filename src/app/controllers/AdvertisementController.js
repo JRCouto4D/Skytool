@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
-import Ad from '../models/Ad';
+import Advertisement from '../models/Advertisement';
 import User from '../models/User';
 import File from '../models/File';
 
-class AdController {
+class AdvertisementController {
   async store(req, res) {
     const schema = Yup.object().shape({
       description: Yup.string().required(),
@@ -16,7 +16,7 @@ class AdController {
 
     const dados = { user_id: req.userId, ...req.body };
 
-    const ads = await Ad.create(dados);
+    const ads = await Advertisement.create(dados);
 
     return res.json(ads);
   }
@@ -31,7 +31,7 @@ class AdController {
       return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
-    const ad = await Ad.findByPk(req.params.id, {
+    const advertisement = await Advertisement.findByPk(req.params.id, {
       include: [
         {
           model: User,
@@ -46,13 +46,18 @@ class AdController {
       ],
     });
 
-    if (!ad) {
+    if (!advertisement) {
       return res.status(400).json({ error: 'Ads não encontrada.' });
     }
 
-    const { id, description, sector, active, user, image } = await ad.update(
-      req.body
-    );
+    const {
+      id,
+      description,
+      sector,
+      active,
+      user,
+      image,
+    } = await advertisement.update(req.body);
 
     return res.json({
       id,
@@ -65,23 +70,23 @@ class AdController {
   }
 
   async delete(req, res) {
-    const ad = await Ad.findByPk(req.params.id);
+    const advertisement = await Advertisement.findByPk(req.params.id);
 
-    if (req.userId !== ad.user_id || !ad) {
+    if (req.userId !== advertisement.user_id || !advertisement) {
       return res
         .status(401)
         .json({ error: 'Não foi possível finalizar a operação' });
     }
 
-    await ad.destroy();
+    await advertisement.destroy();
 
     return res.send();
   }
 
   async index(req, res) {
-    const total = await Ad.count();
+    const total = await Advertisement.count();
 
-    const ad = await Ad.findAll({
+    const advertisement = await Advertisement.findAll({
       include: [
         {
           model: User,
@@ -103,18 +108,18 @@ class AdController {
       ],
     });
 
-    return res.json({ ad, total });
+    return res.json({ advertisement, total });
   }
 
   async show(req, res) {
-    const total = await Ad.count({
+    const total = await Advertisement.count({
       where: {
         user_id: req.userId,
         active: true,
       },
     });
 
-    const ads = await Ad.findAll({
+    const adverts = await Advertisement.findAll({
       where: {
         user_id: req.userId,
         active: true,
@@ -140,8 +145,8 @@ class AdController {
       ],
     });
 
-    return res.json({ ads, total });
+    return res.json({ adverts, total });
   }
 }
 
-export default new AdController();
+export default new AdvertisementController();

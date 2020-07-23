@@ -32,7 +32,7 @@ class SearchProvider {
         'id',
         'name',
         'email',
-        'sector',
+        'category_id',
         'provider',
         'open',
         'evaluation',

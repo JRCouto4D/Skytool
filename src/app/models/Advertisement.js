@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Ad extends Model {
+class Advertisement extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -10,7 +10,7 @@ class Ad extends Model {
       },
       {
         sequelize,
-        tableName: 'ads',
+        tableName: 'adverts',
       }
     );
 
@@ -23,4 +23,4 @@ class Ad extends Model {
   }
 }
 
-export default Ad;
+export default Advertisement;
