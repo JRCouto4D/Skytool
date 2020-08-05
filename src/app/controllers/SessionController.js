@@ -22,6 +22,12 @@ class SessionController {
       ],
     });
 
+    if (!user) {
+      return res
+        .status(400)
+        .json({ error: 'Não há registros para este usuário' });
+    }
+
     const address = await Address.findAll({
       where: {
         user_id: user.id,
@@ -33,12 +39,6 @@ class SessionController {
         user_id: user.id,
       },
     });
-
-    if (!user) {
-      return res
-        .status(400)
-        .json({ error: 'Não há registros para este usuário' });
-    }
 
     if (!(await user.checkPassword(password))) {
       return res.status(400).json({ error: 'Senha incorreta' });
