@@ -10,7 +10,7 @@ class SearchProviderSector {
     const total = await User.count({
       where: {
         provider: true,
-        category_id: { [Op.iLike]: `${category_id}` },
+        category_id,
         name: { [Op.iLike]: `${name}%` },
       },
     });
@@ -18,7 +18,7 @@ class SearchProviderSector {
     const providers = await User.findAll({
       where: {
         provider: true,
-        category_id: { [Op.iLike]: `${category_id}` },
+        category_id,
         name: { [Op.iLike]: `${name}%` },
       },
       include: [
