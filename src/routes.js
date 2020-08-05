@@ -51,7 +51,7 @@ routes.get('/users/:id', UserController.show);
 
 routes.put('/provider/open', OpenProvider.update);
 routes.put('/provider/close', CloseProvider.update);
-routes.get('/provider/category/:sector', SearchCategory.show);
+routes.get('/provider/category/:category_id', SearchCategory.show);
 routes.get('/provider', SearchProvider.show);
 routes.post('/provider/:provider_id/evaluation', Evaluation.store);
 routes.put('/provider/:provider_id/evaluation', Evaluation.update);
