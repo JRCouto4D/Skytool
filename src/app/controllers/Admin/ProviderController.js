@@ -17,7 +17,7 @@ class ProviderController {
       name: Yup.string().required(),
       email: Yup.string().email().required(),
       password: Yup.string().required().min(6),
-      sector: Yup.string().required(),
+      category_id: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {

@@ -106,12 +106,7 @@ class CategoryController {
   }
 
   async show(req, res) {
-    const user = await User.findByPk(req.userId);
     const { name, page = 1 } = req.query;
-
-    if (!user.admin) {
-      return res.status(401).json({ error: 'Este usuário não é um admin' });
-    }
 
     const total = await Category.count({
       where: {
