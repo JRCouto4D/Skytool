@@ -97,6 +97,12 @@ class AddItem {
 
     return res.json(item);
   }
+
+  async index(req, res) {
+    const itens = await Item.findAll();
+
+    return res.json(itens);
+  }
 }
 
 export default new AddItem();
