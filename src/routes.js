@@ -5,7 +5,9 @@ import authMiddleware from './middlewares/auth';
 
 import FileController from './app/controllers/FileController';
 import UserController from './app/controllers/UserController';
-import AddressController from './app/controllers/AdressController';
+import AddressController from './app/controllers/Adresses/AdressController';
+import EnabledAddress from './app/controllers/Adresses/EnabledAddress';
+import DisabledAddress from './app/controllers/Adresses/DisabledAddress';
 import SessionController from './app/controllers/SessionController';
 import PhoneCOntroller from './app/controllers/PhoneController';
 import AdvertisementController from './app/controllers/AdvertisementController';
@@ -56,9 +58,12 @@ routes.get('/provider', SearchProvider.show);
 routes.post('/provider/:provider_id/evaluation', Evaluation.store);
 routes.put('/provider/:provider_id/evaluation', Evaluation.update);
 
+routes.get('/adresses', AddressController.index);
 routes.post('/adresses', AddressController.store);
 routes.put('/adresses/:id', AddressController.update);
 routes.delete('/adresses/:id', AddressController.delete);
+routes.put('/address/:address_id/enabled', EnabledAddress.update);
+routes.put('/address/:address_id/disabled', DisabledAddress.update);
 
 routes.post('/phones', PhoneCOntroller.store);
 routes.put('/phones/:id', PhoneCOntroller.update);
@@ -80,8 +85,8 @@ routes.get(
   ProductController.index
 );
 
-routes.get('/sales', SaleController.show);
-routes.post('/sales', SaleController.store);
+routes.get('/sales', SaleController.index);
+routes.post('/sales/:provider_id', SaleController.store);
 routes.put('/sales/:id', SaleController.update);
 routes.delete('/sales/:id', SaleController.delete);
 routes.put('/sale/:id/goproduction', GoProduction.update);
@@ -97,6 +102,7 @@ routes.get('/categories', Category.show);
 
 routes.post('/addItem', AddItem.store);
 routes.put('/addItem/:id', AddItem.update);
+routes.get('/addItem', AddItem.index);
 
 routes.delete('/removeItem/:id', RemoveItem.delete);
 
