@@ -1,20 +1,11 @@
-import * as Yup from 'yup';
 import Sales from '../models/Sale';
 import User from '../models/User';
 
 class SalesController {
   async store(req, res) {
-    const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
-    });
+    const { provider_id } = req.params;
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos' });
-    }
-
-    const { provider_id } = req.body;
-
-    if (provider_id === req.userId) {
+    if (Number(provider_id) === req.userId) {
       return res.status(400).json({ error: 'Operação não autorizada.' });
     }
 
@@ -72,8 +63,10 @@ class SalesController {
     return res.send();
   }
 
-  async show(req, res) {
-    return res.json({ mensage: true });
+  async index(req, res) {
+    const sales = await Sales.findAll();
+
+    return res.json(sales);
   }
 }
 

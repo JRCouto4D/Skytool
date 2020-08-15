@@ -10,6 +10,7 @@ class Address extends Model {
         city: Sequelize.STRING,
         state: Sequelize.STRING,
         zip_code: Sequelize.STRING,
+        enabled: Sequelize.DOUBLE,
       },
       {
         sequelize,
