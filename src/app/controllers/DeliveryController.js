@@ -76,6 +76,16 @@ class DeliveryController {
       mensage,
     });
   }
+
+  async index(req, res) {
+    const infoDelivery = await Delivery.findAll({
+      where: {
+        provider_id: req.userId,
+      },
+    });
+
+    return res.json(infoDelivery);
+  }
 }
 
 export default new DeliveryController();
