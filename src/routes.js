@@ -27,6 +27,7 @@ import SearchCategory from './app/controllers/SearchProviderSector';
 import SearchProvider from './app/controllers/SearchProvider';
 import Evaluation from './app/controllers/EvaluationController';
 import Category from './app/controllers/CategoryController';
+import Delivery from './app/controllers/DeliveryController';
 
 import multerConfig from './config/multer';
 
@@ -105,5 +106,9 @@ routes.put('/addItem/:id', AddItem.update);
 routes.get('/addItem', AddItem.index);
 
 routes.delete('/removeItem/:id', RemoveItem.delete);
+
+routes.post('/infoDelivery', Delivery.store);
+routes.put('/infoDelivery', Delivery.update);
+routes.get('/infoDelivery', Delivery.index);
 
 export default routes;
