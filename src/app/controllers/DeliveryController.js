@@ -78,9 +78,10 @@ class DeliveryController {
   }
 
   async index(req, res) {
+    const { provider_id } = req.params;
     const infoDelivery = await Delivery.findAll({
       where: {
-        provider_id: req.userId,
+        provider_id,
       },
     });
 
