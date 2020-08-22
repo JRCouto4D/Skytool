@@ -28,6 +28,8 @@ import SearchProvider from './app/controllers/SearchProvider';
 import Evaluation from './app/controllers/EvaluationController';
 import Category from './app/controllers/CategoryController';
 import Delivery from './app/controllers/DeliveryController';
+import StartOrder from './app/controllers/Orders/StartOrder';
+import AddItemCart from './app/controllers/Orders/Itens/AddItemCart';
 
 import multerConfig from './config/multer';
 
@@ -56,6 +58,7 @@ routes.put('/provider/open', OpenProvider.update);
 routes.put('/provider/close', CloseProvider.update);
 routes.get('/provider/category/:category_id', SearchCategory.show);
 routes.get('/provider', SearchProvider.show);
+routes.get('/providers/:provider_id', SearchProvider.index);
 routes.post('/provider/:provider_id/evaluation', Evaluation.store);
 routes.put('/provider/:provider_id/evaluation', Evaluation.update);
 
@@ -109,6 +112,9 @@ routes.delete('/removeItem/:id', RemoveItem.delete);
 
 routes.post('/infoDelivery', Delivery.store);
 routes.put('/infoDelivery', Delivery.update);
-routes.get('/infoDelivery', Delivery.index);
+routes.get('/infoDelivery/:provider_id', Delivery.index);
+
+routes.post('/provider/:provider_id/order/start', StartOrder.store);
+routes.post('/order/:sale_id/addItem/:product_id', AddItemCart.store);
 
 export default routes;
