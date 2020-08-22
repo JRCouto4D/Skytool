@@ -58,7 +58,6 @@ routes.put('/provider/open', OpenProvider.update);
 routes.put('/provider/close', CloseProvider.update);
 routes.get('/provider/category/:category_id', SearchCategory.show);
 routes.get('/provider', SearchProvider.show);
-routes.get('/providers/:provider_id', SearchProvider.index);
 routes.post('/provider/:provider_id/evaluation', Evaluation.store);
 routes.put('/provider/:provider_id/evaluation', Evaluation.update);
 
