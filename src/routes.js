@@ -28,6 +28,11 @@ import SearchProvider from './app/controllers/SearchProvider';
 import Evaluation from './app/controllers/EvaluationController';
 import Category from './app/controllers/CategoryController';
 import Delivery from './app/controllers/DeliveryController';
+import StartOrder from './app/controllers/Orders/StartOrder';
+import AddItemCart from './app/controllers/Orders/Itens/AddItemCart';
+import UpdateItemCart from './app/controllers/Orders/Itens/UpdateItemCart';
+import RemoveItemCart from './app/controllers/Orders/Itens/RemoveItemCart';
+import CompletedOrder from './app/controllers/Orders/CompletedOrder';
 
 import multerConfig from './config/multer';
 
@@ -109,6 +114,12 @@ routes.delete('/removeItem/:id', RemoveItem.delete);
 
 routes.post('/infoDelivery', Delivery.store);
 routes.put('/infoDelivery', Delivery.update);
-routes.get('/infoDelivery', Delivery.index);
+routes.get('/infoDelivery/:provider_id', Delivery.index);
+
+routes.post('/provider/:provider_id/order/start', StartOrder.store);
+routes.put('/order/:sale_id/completed', CompletedOrder.update);
+routes.post('/order/:sale_id/addItem/:product_id', AddItemCart.store);
+routes.put('/item/:item_id/update', UpdateItemCart.update);
+routes.delete('/item/:item_id/remove', RemoveItemCart.delete);
 
 export default routes;
