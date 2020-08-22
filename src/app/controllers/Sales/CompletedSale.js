@@ -6,7 +6,7 @@ class CompletedSale {
   async update(req, res) {
     const schema = Yup.object().shape({
       payment: Yup.string().required(),
-      change_for: Yup.string(),
+      change_for: Yup.number(),
       address_id: Yup.number().required(),
     });
 
