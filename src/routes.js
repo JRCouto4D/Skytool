@@ -30,6 +30,7 @@ import Category from './app/controllers/CategoryController';
 import Delivery from './app/controllers/DeliveryController';
 import StartOrder from './app/controllers/Orders/StartOrder';
 import AddItemCart from './app/controllers/Orders/Itens/AddItemCart';
+import UpdateItemCart from './app/controllers/Orders/Itens/UpdateItemCart';
 
 import multerConfig from './config/multer';
 
@@ -115,5 +116,6 @@ routes.get('/infoDelivery/:provider_id', Delivery.index);
 
 routes.post('/provider/:provider_id/order/start', StartOrder.store);
 routes.post('/order/:sale_id/addItem/:product_id', AddItemCart.store);
+routes.put('/item/:item_id/update', UpdateItemCart.update);
 
 export default routes;
