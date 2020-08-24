@@ -35,6 +35,7 @@ import RemoveItemCart from './app/controllers/Orders/Itens/RemoveItemCart';
 import CompletedOrder from './app/controllers/Orders/CompletedOrder';
 import RemoveOrderPermanently from './app/controllers/Orders/RemoveOrderPermanently';
 import CanceledOrder from './app/controllers/Orders/CanceledOrder';
+import ResetDataOrder from './app/controllers/Orders/ResetDataOrder';
 
 import multerConfig from './config/multer';
 
@@ -128,5 +129,6 @@ routes.put('/order/:sale_id/canceled', CanceledOrder.update);
 routes.post('/order/:sale_id/addItem/:product_id', AddItemCart.store);
 routes.put('/item/:item_id/update', UpdateItemCart.update);
 routes.delete('/item/:item_id/remove', RemoveItemCart.delete);
+routes.delete('/orders/reset', ResetDataOrder.delete);
 
 export default routes;
