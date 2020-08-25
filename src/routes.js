@@ -12,14 +12,6 @@ import SessionController from './app/controllers/SessionController';
 import PhoneCOntroller from './app/controllers/PhoneController';
 import AdvertisementController from './app/controllers/AdvertisementController';
 import ProductController from './app/controllers/ProductController';
-import SaleController from './app/controllers/SaleController';
-import AddItem from './app/controllers/itensSale/AddItem';
-import RemoveItem from './app/controllers/itensSale/RemoveItem';
-import CompletedSale from './app/controllers/Sales/CompletedSale';
-import GoProduction from './app/controllers/Sales/GoProduction';
-import GoDelivery from './app/controllers/Sales/GoDelivery';
-import CanceledSale from './app/controllers/Sales/CanceledSale';
-import FinishedSale from './app/controllers/Sales/FinishedSale';
 import OpenProvider from './app/controllers/OpenProvider';
 import CloseProvider from './app/controllers/CloseProvider';
 import ProviderController from './app/controllers/Admin/ProviderController';
@@ -94,26 +86,10 @@ routes.get(
   ProductController.index
 );
 
-routes.get('/sales', SaleController.index);
-routes.post('/sales/:provider_id', SaleController.store);
-routes.put('/sales/:id', SaleController.update);
-routes.delete('/sales/:id', SaleController.delete);
-routes.put('/sale/:id/goproduction', GoProduction.update);
-routes.put('/sale/:id/godelivery', GoDelivery.update);
-routes.put('/sale/:id/completed', CompletedSale.update);
-routes.put('/sale/:id/canceled', CanceledSale.update);
-routes.put('/sale/:id/finished', FinishedSale.update);
-
 routes.post('/categories', Category.store);
 routes.put('/categories/:id', Category.update);
 routes.delete('/categories/:id', Category.delete);
 routes.get('/categories', Category.show);
-
-routes.post('/addItem', AddItem.store);
-routes.put('/addItem/:id', AddItem.update);
-routes.get('/addItem', AddItem.index);
-
-routes.delete('/removeItem/:id', RemoveItem.delete);
 
 routes.post('/infoDelivery', Delivery.store);
 routes.put('/infoDelivery', Delivery.update);
