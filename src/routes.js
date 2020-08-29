@@ -30,6 +30,7 @@ import CanceledOrder from './app/controllers/Orders/CanceledOrder';
 import ResetDataOrder from './app/controllers/Orders/ResetDataOrder';
 import ListOrders from './app/controllers/Orders/ListOrders';
 import GoProduction from './app/controllers/Orders/Provider/GoProduction';
+import GoDelivery from './app/controllers/Orders/Provider/GoDelivery';
 
 import multerConfig from './config/multer';
 
@@ -105,6 +106,7 @@ routes.delete(
 );
 routes.put('/order/:sale_id/canceled', CanceledOrder.update);
 routes.put('/order/:sale_id/production', GoProduction.update);
+routes.put('/order/:sale_id/delivery', GoDelivery.update);
 routes.post('/order/:sale_id/addItem/:product_id', AddItemCart.store);
 routes.put('/item/:item_id/update', UpdateItemCart.update);
 routes.delete('/item/:item_id/remove', RemoveItemCart.delete);
